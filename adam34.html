@@ -95,16 +95,16 @@
         $("#forward").click(function(e) {
             console.log('forward');
             socket.emit('drive', {
-                left: 15,
-                right: 15
+                left: 500,
+                right: 500
             });
         });
 
         $("#backward").click(function(e) {
             console.log('backward');
             socket.emit('drive', {
-                left: -15,
-                right: -15
+                left: -500,
+                right: -500
             });
         });
 
@@ -120,8 +120,8 @@
         $("#turnLeft").click(function(e) {
             console.log('stop');
             socket.emit('drive', {
-                left: -15,
-                right: 15
+                left: 500,
+                right: -500
             });
         });
 
@@ -129,8 +129,8 @@
         $("#turnRight").click(function(e) {
             console.log('stop');
             socket.emit('drive', {
-                left: 15,
-                right: -15
+                left: -500,
+                right: 500
             });
         });
 
@@ -154,12 +154,12 @@
             console.log(event.which);
             speed = $("#speed").text();
             //speed = 100;
-            if (event.which === 87 || event.which === 38) //w, up arrow - move forward
+            if (event.which === 87) //w - move forward
             {
                 //socket.emit('sing', [[300,300]]);
                 event.preventDefault();
                 speed = $("#speed").text();
-                speed = speed * 1 + 25;
+                speed = speed * 1 + 50;
                 $("#speed").text(speed);
                 socket.emit('drive', {
                     left: speed,
@@ -168,11 +168,11 @@
 
             }
 
-            if (event.which === 83 || event.which === 40) //s, down arrow - move backward
+            if (event.which === 83) //s - move backward
             {
                 event.preventDefault();
                 speed = $("#speed").text();
-                speed = speed * 1 - 25;
+                speed = speed * 1 - 50;
                 $("#speed").text(speed);
                 socket.emit('drive', {
                     left: speed,
@@ -182,11 +182,11 @@
 
 
 
-            if (event.which === 37) //left arrow - move right
+            if (event.which === 65) //d - move right
             {
                 event.preventDefault();
                 speed = $("#speed").text();
-                speed = 25;
+                speed = 500;
                 $("#speed").text(speed);
                 socket.emit('drive', {
                     left: speed,
@@ -195,43 +195,16 @@
 
             }
 
-            if (event.which === 65) //a - forward left
-            {
-                event.preventDefault();
-                speed = $("#speed").text();
-                (speed < 25) ? speed=25 : speed = speed;
-                $("#speed").text(speed);
-                socket.emit('drive', {
-                    left: Math.round(speed),
-                    right: Math.round(speed -25)
-                });
-
-            }
-
-            if (event.which === 68) //d - forward left
-            {
-                event.preventDefault();
-                speed = $("#speed").text();
-                (speed < 25) ? speed=25 : speed = speed;
-                $("#speed").text(speed);
-                socket.emit('drive', {
-                    left: Math.round(speed - 25),
-                    right: Math.round(speed)
-                });
-
-            }
-
-            if (event.which === 39) //right arrow - move left
-            {
-                event.preventDefault();
-                speed = $("#speed").text();
-                speed = 25;
-                $("#speed").text(speed);
-                socket.emit('drive', {
-                    left: -speed,
-                    right: speed
-                });
-            }
+            if (event.which === 68) //a - move left
+                {
+                    speed = $("#speed").text();
+                    speed = 500;
+                    $("#speed").text(speed);
+                    socket.emit('drive', {
+                        left: -speed,
+                        right: speed
+                    });
+                }
 
             if (event.which === 32) //space - stop
 
